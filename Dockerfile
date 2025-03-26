@@ -15,8 +15,11 @@ RUN chmod +x gradlew
 # 5. Gradle을 사용하여 종속성을 설치하고 애플리케이션을 빌드
 RUN ./gradlew build -x test
 
-# 6. 빌드된 JAR 파일을 컨테이너 안으로 복사
+# 6. 빌드된 JAR 파일이 실제로 생성되었는지 확인 (디버깅용)
+RUN ls build/libs
+
+# 7. 빌드된 JAR 파일을 컨테이너 안으로 복사
 COPY build/libs/marketingChatBot-0.0.1-SNAPSHOT.jar app.jar
 
-# 7. 바로 애플리케이션 실행
+# 8. 바로 애플리케이션 실행
 ENTRYPOINT ["java", "-jar", "app.jar"]
