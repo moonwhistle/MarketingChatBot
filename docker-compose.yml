@@ -1,15 +1,4 @@
 services:
-  app:
-    build: .
-    restart: always
-    ports:
-      - "8083:8080"
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod
-      - openai.api.key=${OPENAI_API_KEY}
-    depends_on:
-      - weaviate
-
   weaviate:
     image: semitechnologies/weaviate:1.22.3
     restart: always
@@ -20,6 +9,7 @@ services:
       PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
       ENABLE_MODULES: 'text2vec-openai'
       TEXT2VEC_OPENAI_APIKEY: ${OPENAI_API_KEY}
+      WEAVIATE_CLUSTER: 'false'
     volumes:
       - weaviate_data:/var/lib/weaviate
 
