@@ -43,6 +43,8 @@ dependencies {
 	implementation 'org.springframework.ai:spring-ai-starter-vector-store-weaviate'
 	implementation 'org.springframework.boot:spring-boot-starter-graphql'
 	implementation 'org.springframework.ai:spring-ai-weaviate-store'
+
+	implementation 'org.json:json:20231013'
 }
 
 tasks.named('test') {
