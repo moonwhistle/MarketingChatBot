@@ -43,8 +43,16 @@ dependencies {
 	implementation 'org.springframework.ai:spring-ai-starter-vector-store-weaviate'
 	implementation 'org.springframework.boot:spring-boot-starter-graphql'
 	implementation 'org.springframework.ai:spring-ai-weaviate-store'
+	implementation 'io.weaviate:client:4.8.3'
 
 	implementation 'org.json:json:20231013'
+
+	// commons-logging 제거
+	configurations {
+		configureEach {
+			exclude group: 'commons-logging', module: 'commons-logging'
+		}
+	}
 }
 
 tasks.named('test') {
