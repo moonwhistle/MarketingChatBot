@@ -1,10 +1,14 @@
 package com.example.marketingChatBot.chat.config;
 
+import io.weaviate.client.WeaviateAuthClient;
+import io.weaviate.client.v1.auth.exception.AuthException;
 import io.weaviate.client.v1.schema.model.Property;
 import io.weaviate.client.Config;
 import io.weaviate.client.v1.schema.model.WeaviateClass;
 import io.weaviate.client.WeaviateClient;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.openai.OpenAiEmbeddingModel;
 import org.springframework.ai.openai.api.OpenAiApi;
@@ -21,6 +25,12 @@ public class WeaviateConfig {
     @Value("${spring.ai.openai.api-key}")
     private String OPENAI_API_KEY;
 
+    @Value("${spring.ai.vectorstore.weaviate.host}")
+    private String WEAVIATE_HOST;
+
+    @Value("${spring.ai.vectorstore.weaviate.api-key}")
+    private String WEAVIATE_API_KEY;
+
     @Bean
     public EmbeddingModel embeddingModel() {
         OpenAiApi openAiApi = OpenAiApi.builder()
@@ -31,10 +41,12 @@ public class WeaviateConfig {
     }
 
     @Bean
-    public WeaviateClient weaviateClient() {
-        return new WeaviateClient(new Config("http", "localhost:8081"));
+    public WeaviateClient weaviateClient() throws AuthException {
+        Map<String, String> headers = new HashMap<>();
+        headers.put("X-Openai-Api-Key", OPENAI_API_KEY);
+        Config config = new Config("https", WEAVIATE_HOST, headers);
+        return WeaviateAuthClient.apiKey(config, WEAVIATE_API_KEY);
     }
-
     /*@Bean
     public String deleteSchema(WeaviateClient weaviateClient) {
         String className = "BusinessAPI";

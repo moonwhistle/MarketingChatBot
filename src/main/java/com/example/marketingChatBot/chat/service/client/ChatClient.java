@@ -67,5 +67,4 @@ public class ChatClient {
 
         return requestBody;
     }
-
 }
