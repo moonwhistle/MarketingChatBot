@@ -19,7 +19,7 @@ RUN ./gradlew build -x test
 RUN ls build/libs
 
 # 7. 빌드된 JAR 파일을 컨테이너 안으로 복사
-COPY build/libs/marketingChatBot-0.0.1-SNAPSHOT-plain.jar app.jar
+COPY build/libs/marketingChatBot-0.0.1-SNAPSHOT.jar app.jar
 
 # 8. 바로 애플리케이션 실행
 ENTRYPOINT ["java", "-jar", "app.jar"]
