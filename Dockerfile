@@ -13,7 +13,7 @@ COPY src /app/src/
 RUN chmod +x gradlew
 
 # 5. Gradle을 사용하여 종속성을 설치하고 애플리케이션을 빌드
-RUN ./gradlew build -x test
+#RUN ./gradlew build -x test
 
 # 6. 빌드된 JAR 파일이 실제로 생성되었는지 확인 (디버깅용)
 RUN ls build/libs
